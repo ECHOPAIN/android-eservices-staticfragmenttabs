@@ -1,6 +1,7 @@
 package android.eservices.staticfragmenttabs;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -26,14 +27,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setupViewPagerAndTabs();
+        TextView counter_textview = (TextView)  findViewById(R.id.counter_textview);
+        counter_textview.setText(getResources().getString(R.string.counter_text));
 
-        /*final Button button_increment = (Button) findViewById(R.id.button_increment);
-        final Button button_decrement = (Button) findViewById(R.id.button_increment);
-        button_increment.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // your handler code here
-            }
-        });*/
+
     }
 
     //TODO fill the method to get view references and initialize viewpager to display our fragments
