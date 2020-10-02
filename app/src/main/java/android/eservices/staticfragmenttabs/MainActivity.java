@@ -19,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private int currentCounter;
+    private SectionsStatePagerAdapter mSectionsStatePagerAdapter;
     private TextView counterTextView;
+    private TextView counter_textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setupViewPagerAndTabs();
-        TextView counter_textview = (TextView)  findViewById(R.id.counter_textview);
-        counter_textview.setText(getResources().getString(R.string.counter_text));
+        counter_textview = (TextView)  findViewById(R.id.counter_textview);
+        counter_textview.setText(getResources().getString(R.string.counter_text,currentCounter));
 
 
     }
@@ -62,6 +64,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private void setupViewPager(ViewPager viewPager){
+        SectionsStatePagerAdapter adapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentOne(), "Fragment1");
+        adapter.addFragment(new FragmentTwo(), "Fragment2");
+        viewPager.setAdapter(adapter);
+    }
+
+    public void setViewPager(int fragmentNumber){
+        viewPager.setCurrentItem(fragmentNumber);
+    }
+
+    public void setCurrentCounter(int value) {
+        currentCounter = value;
+    }
+
+    public int getCurrentCounter() {
+        return currentCounter;
+    }
+
+    public void updateCurrentCounterDisplay() {
+        counter_textview.setText(getResources().getString(R.string.counter_text,currentCounter));
     }
 
     //TODO : increment and decrement counter, use the already provided String ressource (see strings.xml)
