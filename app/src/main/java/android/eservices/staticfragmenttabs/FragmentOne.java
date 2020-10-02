@@ -7,19 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 //TODO : fix this fragment so it works :)
 //Once it's done, then create a second fragment with the other layout
-public class FragmentOne extends Fragment implements View.OnClickListener{
+public class FragmentOne extends Fragment{
 
 
-    @Override
-    public void onClick(View view) {
-        TextView counter_textview = (TextView)  view.findViewById(R.id.counter_textview);
-        //do something
-    }
+    private ViewPager mViewPager;
+    private Button button;
 
     public static final String TAB_NAME = "ADD TO COUNTER";
 
@@ -36,9 +35,16 @@ public class FragmentOne extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_one, container, false);
-        //com.google.android.material.tabs.TabLayout t = (com.google.android.material.tabs.TabLayout) view.findViewById(R.id.tablayout);
-        Button button = (Button) view.findViewById(R.id.button_increment);
-        button.setOnClickListener(this);
+
+        button = (Button) view.findViewById(R.id.button_increment);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getActivity(), "something to do", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setCurrentCounter(((MainActivity)getActivity()).getCurrentCounter()+1);
+                ((MainActivity)getActivity()).updateCurrentCounterDisplay();
+            }
+        });
         return view;
     }
 
@@ -50,6 +56,12 @@ public class FragmentOne extends Fragment implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+
+
+    public void setViewPager(int fragmentNumber){
+        mViewPager.setCurrentItem(fragmentNumber);
     }
 
     //TODO add listener to button and transmit the information to parent Activity
